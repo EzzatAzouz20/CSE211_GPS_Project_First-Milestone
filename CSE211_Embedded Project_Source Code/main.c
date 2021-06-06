@@ -72,18 +72,19 @@ GPIO_PORTA_PUR_R =0x00;
 	LCD_command(0x01);//ciear display
 }
 
-
-//Function to turn on the red led if the distance exceeds 100 meters
-void Turn_Led(void){             
-if((GPIO_PORTF_DATA_R&0x11)==0x10) //IF distance >100
+//Function to calculate the taken distance
+double distance_m(double latitude1 , double longitude1 , double latitude2 , double longitude2)
     {
-    GPIO_PORTF_DATA_R = RED;
-    }
-
-    else
-    {
-  GPIO_PORTF_DATA_R = 0;
-    }
+        double latitude1_rad = latitude1 * (PI /180);   
+        double longitude1_rad = longitude1 * (PI /180);
+        double latitude2_rad = latitude2 * (PI /180);   
+    double longitude2_rad = longitude2 * (PI /180);
+        //HAVERSINE FORMULA
+        double dlongitude = longitude2_rad - longitude1_rad;
+    double dlatitude = latitude2_rad - latitude1_rad;
+        double ans = pow(sin(dlatitude/2) , 2) + cos(latitude1) * cos(latitude2) * pow(sin(dlongitude/2) , 2);
+        ans = 2 * asin(sqrt(ans));
+        return (ans * R)/1000;
 }
 
 
