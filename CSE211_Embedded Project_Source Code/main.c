@@ -47,6 +47,32 @@ void LCD_data(unsigned char data)
   GPIO_PORTA_DATA_R =0x00;
 }
 
+
+void LCD_init(){
+SYSCTL_RCGCGPIO_R|= 0x03;//Enable port A & port B
+while ((SYSCTL_PRGPIO_R&0x03)==0){};
+	
+	//INITIALIZATION OF PORT A
+GPIO_PORTA_DIR_R |= 0xE0;//set A5,A6 & A7 pins to be output
+GPIO_PORTA_DEN_R |= 0xE0;//set A5,A6 & A7 pins to be digital
+GPIO_PORTA_AMSEL_R =0x00;
+GPIO_PORTA_AFSEL_R =0x00;
+GPIO_PORTA_PCTL_R =0x00;
+GPIO_PORTA_PUR_R =0x00;
+	
+//INITIALIZATION OF PORT B
+  GPIO_PORTB_DIR_R = 0xFF;//set all pins to be output
+  GPIO_PORTB_DEN_R = 0xFF;//set all pins to be gigital
+  GPIO_PORTB_AMSEL_R =0x00;
+  GPIO_PORTB_AFSEL_R =0x00;
+  GPIO_PORTB_PCTL_R =0x00;
+  GPIO_PORTB_PUR_R =0x00;
+	LCD_command(0x0F);//turn on display
+	LCD_command(0x38);//2 lines (8 bits data)
+	LCD_command(0x01);//ciear display
+}
+
+
 //Function to turn on the red led if the distance exceeds 100 meters
 void Turn_Led(void){             
 if((GPIO_PORTF_DATA_R&0x11)==0x10) //IF distance >100
