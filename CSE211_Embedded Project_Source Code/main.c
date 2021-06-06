@@ -72,6 +72,19 @@ GPIO_PORTA_PUR_R =0x00;
 	LCD_command(0x01);//ciear display
 }
 
+//Function to turn on the red led if the distance exceeds 100 meters
+void Turn_Led(void){             
+if((GPIO_PORTF_DATA_R&0x11)==0x10) //IF distance >100
+    {
+    GPIO_PORTF_DATA_R = RED;
+    }
+
+    else
+    {
+  GPIO_PORTF_DATA_R = 0;
+    }
+}
+
 //Function to calculate the taken distance
 double distance_m(double latitude1 , double longitude1 , double latitude2 , double longitude2)
     {
