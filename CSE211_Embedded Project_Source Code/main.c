@@ -22,6 +22,31 @@ GPIO_PORTF_PUR_R = 0x11;
 
 
 
+//LCD Delay and Command and Data
+void LCD_command(unsigned char command)
+{
+	GPIO_PORTA_DATA_R =0x00;
+  GPIO_PORTB_DATA_R =command;
+  GPIO_PORTA_DATA_R |=0x80;
+  GPIO_PORTA_DATA_R =0x00;
+}
+
+//delay function in milli seconds
+void delay_millisec( int time)
+{
+	int i,j;
+  for(i=0;i<time;i++)
+  for(j=0;j<3180;j++);
+}
+
+void LCD_data(unsigned char data)
+{
+	GPIO_PORTA_DATA_R =0x20;
+  GPIO_PORTB_DATA_R =data;
+  GPIO_PORTA_DATA_R |=0x80;
+  GPIO_PORTA_DATA_R =0x00;
+}
+
 
 
 
