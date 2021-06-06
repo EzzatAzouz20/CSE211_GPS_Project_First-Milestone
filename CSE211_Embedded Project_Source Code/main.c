@@ -100,7 +100,30 @@ double distance_m(double latitude1 , double longitude1 , double latitude2 , doub
         return (ans * R)/1000;
 }
 
-
+int main(){
+	init();
+	LCD_init();
+	while (1){
+		void Turn_Led(void);
+	  LCD_command(0x01);
+		LCD_command(0x80);
+		delay_millisec(500);
+		LCD_data('P');
+		delay_millisec(1);
+	  LCD_data('r');
+		delay_millisec(1);
+		LCD_data('o');
+		delay_millisec(1);
+		LCD_data('j');
+		delay_millisec(1);
+		LCD_data('e');
+		delay_millisec(1);
+		LCD_data('c');
+		delay_millisec(1);
+		LCD_data('t');
+		delay_millisec(500);
+	}
+}
 
 
 
